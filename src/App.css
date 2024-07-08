@@ -1,60 +1,194 @@
+/* App.css */
 .App {
+  font-family: Arial, sans-serif;
   text-align: center;
+  background-color: #f0f0f0;
+}
+
+h1 {
+  margin: 20px;
 }
 
 .container {
   display: flex;
-  justify-content: space-around;
-  margin: 20px;
+  height: 80vh;
+  width: 90vw;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
-.controls {
-  width: 300px;
-}
-
-.controls label {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.controls input[type="range"] {
-  width: 100%;
-}
-
-.controls input[type="color"] {
-  width: 100%;
-  padding: 5px;
-  margin-top: 5px;
-}
-
-.controls button {
-  margin-top: 10px;
-  padding: 10px 20px;
+.presets, .controls, .preview {
+  padding: 20px;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .presets {
+  width: 20%;
+  background-color: #f7f7f7;
+  border-right: 1px solid #ddd;
+  position: relative;
+}
+
+.presets h2 {
+  margin-top: 0;
+}
+
+.preset-list {
+  margin-top: 10px;
+}
+
+.preset-category {
+  margin-bottom: 10px;
+}
+
+.preset-category button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  border: none;
+  background-color: #e0e0e0;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  text-align: left;
+  font-size: 14px;
+}
+
+.preset-category button:hover {
+  background-color: #d0d0d0;
+  transform: scale(1.02);
+}
+
+.preset-category .children {
+  margin-left: 15px;
+  display: none;
+}
+
+.preset-category .children.active {
+  display: block;
+}
+
+.preset-list button.active {
+  background-color: #d0d0d0;
+}
+
+.controls {
+  width: 45%;
+  background-color: #fafafa;
+  padding: 20px;
+  position: relative;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
 }
 
-.presets button {
-  margin: 5px 0;
-  padding: 10px;
+.controls .shadow-control {
+  margin-bottom: 15px;
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.presets button.active {
-  background-color: #ddd;
+.controls .shadow-control h3 {
+  margin-top: 0;
+  font-size: 16px;
+}
+
+.controls label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.controls label span {
+  margin-left: 10px;
+}
+
+.controls input[type="range"] {
+  width: 65%;
+}
+
+.controls input[type="color"],
+.controls input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+.controls button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 10px 5px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  font-size: 14px;
+  border-radius: 4px;
+}
+
+.controls button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .preview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 30%;
+  background-color: #fff;
+  border-left: 1px solid #ddd;
+  position: fixed;
+  right: 0;
+  top: 20%;
+  bottom: 20%;
 }
 
-.box {
-  width: 200px;
-  height: 200px;
-  background-color: #f0f0f0;
-  margin-bottom: 20px;
+.preview .box {
+  width: 150px;
+  height: 150px;
+  margin: 20px auto;
+  background-color: #e0e0e0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.preview code {
+  display: block;
+  margin-top: 20px;
+  background-color: #f7f7f7;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  text-align: left;
+  font-size: 14px;
+}
+
+/* Custom scrollbars */
+.presets::-webkit-scrollbar, .controls::-webkit-scrollbar {
+  width: 8px;
+}
+
+.presets::-webkit-scrollbar-track, .controls::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
+.presets::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.presets::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.controls::-webkit-scrollbar {
+  display: none;
 }

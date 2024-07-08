@@ -1,293 +1,253 @@
-// // src/App.js
-// import React, { useState } from 'react';
-// import './App.css';
-
-// const initialPresets = {
-//   outer: {
-//     'Basic Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Soft Shadow': { x: 5, y: 5, blur: 15, spread: 0, color: '#aaaaaa', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Hard Shadow': { x: 10, y: 10, blur: 0, spread: 0, color: '#000000', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Neon Glow': { x: 0, y: 0, blur: 10, spread: 0, color: '#00ff00', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Double Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Colorful Shadow': { x: 10, y: 10, blur: 20, spread: 0, color: 'rgba(255, 0, 0, 0.5)', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Distant Shadow': { x: 20, y: 20, blur: 10, spread: 0, color: '#555555', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     '3D Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Blurred Shadow': { x: 10, y: 10, blur: 15, spread: 0, color: '#999999', inset: false, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//   },
-//   inner: {
-//     'Basic Inset Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Soft Inset Shadow': { x: 5, y: 5, blur: 15, spread: 0, color: '#aaaaaa', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Hard Inset Shadow': { x: 10, y: 10, blur: 0, spread: 0, color: '#000000', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset Neon Glow': { x: 0, y: 0, blur: 10, spread: 0, color: '#00ff00', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset Double Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset Colorful Shadow': { x: 10, y: 10, blur: 20, spread: 0, color: 'rgba(255, 0, 0, 0.5)', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset Distant Shadow': { x: 20, y: 20, blur: 10, spread: 0, color: '#555555', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset 3D Shadow': { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//     'Inset Blurred Shadow': { x: 10, y: 10, blur: 15, spread: 0, color: '#999999', inset: true, opacity: 1, top: 0, bottom: 0, right: 0, left: 0 },
-//   }
-// };
-
-// const App = () => {
-//   const [presets, setPresets] = useState(initialPresets);
-//   const [presetType, setPresetType] = useState('outer');
-//   const [selectedPreset, setSelectedPreset] = useState('Basic Shadow');
-//   const [boxShadow, setBoxShadow] = useState(initialPresets.outer['Basic Shadow']);
-
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setBoxShadow((prev) => ({ ...prev, [name]: name === 'color' ? value : parseFloat(value) }));
-//   };
-
-//   const handlePresetChange = (preset) => {
-//     setSelectedPreset(preset);
-//     setBoxShadow(presets[presetType][preset]);
-//   };
-
-//   const handleSavePreset = () => {
-//     setPresets((prev) => ({
-//       ...prev,
-//       [presetType]: {
-//         ...prev[presetType],
-//         [selectedPreset]: boxShadow
-//       }
-//     }));
-//   };
-
-//   const handleCopy = () => {
-//     const shadowString = `${boxShadow.inset ? 'inset ' : ''}${boxShadow.x}px ${boxShadow.y}px ${boxShadow.blur}px ${boxShadow.spread}px ${boxShadow.color}${boxShadow.opacity < 1 ? ` ${boxShadow.opacity}` : ''}`;
-//     navigator.clipboard.writeText(`box-shadow: ${shadowString};`);
-//     alert('Box-shadow CSS copied to clipboard!');
-//   };
-
-//   const shadowString = `${boxShadow.inset ? 'inset ' : ''}${boxShadow.x}px ${boxShadow.y}px ${boxShadow.blur}px ${boxShadow.spread}px ${boxShadow.color}`;
-
-//   return (
-//     <div className="App">
-//       <h1>Box Shadow Generator</h1>
-//       <div className="container">
-//         <div className="controls">
-//           <label>
-//             Horizontal Offset (x):
-//             <input
-//               type="range"
-//               name="x"
-//               min="-100"
-//               max="100"
-//               value={boxShadow.x}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.x}</span>
-//           </label>
-//           <label>
-//             Vertical Offset (y):
-//             <input
-//               type="range"
-//               name="y"
-//               min="-100"
-//               max="100"
-//               value={boxShadow.y}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.y}</span>
-//           </label>
-//           <label>
-//             Blur Radius (blur):
-//             <input
-//               type="range"
-//               name="blur"
-//               min="0"
-//               max="100"
-//               value={boxShadow.blur}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.blur}</span>
-//           </label>
-//           <label>
-//             Spread Radius (spread):
-//             <input
-//               type="range"
-//               name="spread"
-//               min="-50"
-//               max="50"
-//               value={boxShadow.spread}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.spread}</span>
-//           </label>
-//           <label>
-//             Color:
-//             <input
-//               type="color"
-//               name="color"
-//               value={boxShadow.color}
-//               onChange={handleChange}
-//             />
-//           </label>
-//           <label>
-//             Opacity:
-//             <input
-//               type="range"
-//               name="opacity"
-//               min="0"
-//               max="1"
-//               step="0.01"
-//               value={boxShadow.opacity}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.opacity}</span>
-//           </label>
-//           <label>
-//             Top Margin (top):
-//             <input
-//               type="range"
-//               name="top"
-//               min="0"
-//               max="100"
-//               value={boxShadow.top}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.top}</span>
-//           </label>
-//           <label>
-//             Bottom Margin (bottom):
-//             <input
-//               type="range"
-//               name="bottom"
-//               min="0"
-//               max="100"
-//               value={boxShadow.bottom}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.bottom}</span>
-//           </label>
-//           <label>
-//             Right Margin (right):
-//             <input
-//               type="range"
-//               name="right"
-//               min="0"
-//               max="100"
-//               value={boxShadow.right}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.right}</span>
-//           </label>
-//           <label>
-//             Left Margin (left):
-//             <input
-//               type="range"
-//               name="left"
-//               min="0"
-//               max="100"
-//               value={boxShadow.left}
-//               onChange={handleChange}
-//             />
-//             <span>{boxShadow.left}</span>
-//           </label>
-//           <label>
-//             Inset:
-//             <input
-//               type="checkbox"
-//               name="inset"
-//               checked={boxShadow.inset}
-//               onChange={(e) => setBoxShadow((prev) => ({ ...prev, inset: e.target.checked }))}
-//             />
-//           </label>
-//           <button onClick={handleCopy}>Copy CSS</button>
-//           <button onClick={handleSavePreset}>Save Preset</button>
-
-//           <h2>Presets</h2>
-//           <div>
-//             <label>
-//               <input
-//                 type="radio"
-//                 value="outer"
-//                 checked={presetType === 'outer'}
-//                 onChange={() => setPresetType('outer')}
-//               />
-//               Outer Box Shadows
-//             </label>
-//             <label>
-//               <input
-//                 type="radio"
-//                 value="inner"
-//                 checked={presetType === 'inner'}
-//                 onChange={() => setPresetType('inner')}
-//               />
-//               Inner Box Shadows
-//             </label>
-//           </div>
-
-//           <div className="presets">
-//             {Object.keys(presets[presetType]).map((preset) => (
-//               <button
-//                 key={preset}
-//                 className={selectedPreset === preset ? 'active' : ''}
-//                 onClick={() => handlePresetChange(preset)}
-//               >
-//                 {preset}
-//               </button>
-//             ))}
-//           </div>
-//         </div>
-
-//         <div className="preview">
-//           <div
-//             className="box"
-//             style={{
-//               boxShadow: `${boxShadow.inset ? 'inset ' : ''}${boxShadow.x}px ${boxShadow.y}px ${boxShadow.blur}px ${boxShadow.spread}px ${boxShadow.color}${boxShadow.opacity < 1 ? ` ${boxShadow.opacity}` : ''}`,
-//               marginTop: `${boxShadow.top}px`,
-//               marginBottom: `${boxShadow.bottom}px`,
-//               marginRight: `${boxShadow.right}px`,
-//               marginLeft: `${boxShadow.left}px`,
-//             }}
-//           ></div>
-//           <code>
-//             box-shadow: {`${boxShadow.inset ? 'inset ' : ''}${boxShadow.x}px ${boxShadow.y}px ${boxShadow.blur}px ${boxShadow.spread}px ${boxShadow.color}${boxShadow.opacity < 1 ? ` ${boxShadow.opacity}` : ''}`};
-//             <br />
-//             margin: {`${boxShadow.top}px ${boxShadow.right}px ${boxShadow.bottom}px ${boxShadow.left}px`};
-//           </code>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default App;
-
-
-// src/App.js
 import React, { useState } from 'react';
 import './App.css';
 
 const initialPresets = {
   outer: {
-    'Basic Shadow': [
-      { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: false, opacity: 1 }
-    ],
-    'Neon Glow': [
-      { x: 0, y: 0, blur: 5, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
-      { x: 0, y: 0, blur: 25, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
-      { x: 0, y: 0, blur: 50, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
-      { x: 0, y: 0, blur: 200, spread: 0, color: '#03e9f4', inset: false, opacity: 1 }
-    ]
+    standard: {
+      'Basic Shadow': [
+        { x: 10, y: 10, blur: 5, spread: 0, color: '#888888', inset: false, opacity: 1 }
+      ],
+      'Soft Shadow': [
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#555555', inset: false, opacity: 0.7 }
+      ],
+      'Hard Shadow': [
+        { x: 15, y: 15, blur: 0, spread: 0, color: '#333333', inset: false, opacity: 1 }
+      ],
+      'Deep Shadow': [
+        { x: 20, y: 20, blur: 20, spread: 0, color: '#000000', inset: false, opacity: 0.9 }
+      ],
+      'Left Shadow': [
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Right Shadow': [
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Top Shadow': [
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Bottom Shadow': [
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Top and Bottom Shadow': [
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 },
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Left and Right Shadow': [
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 },
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'All Sides Shadow': [
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 },
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 },
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 },
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: false, opacity: 0.8 }
+      ],
+      'Long Shadow': [
+        { x: 0, y: 20, blur: 20, spread: 0, color: '#000000', inset: false, opacity: 0.7 }
+      ],
+      'Soft Edge Shadow': [
+        { x: 10, y: 10, blur: 30, spread: 0, color: '#000000', inset: false, opacity: 0.5 }
+      ],
+      'Colorful Shadow': [
+        { x: 10, y: 10, blur: 10, spread: 0, color: '#ff0000', inset: false, opacity: 0.8 },
+        { x: -10, y: -10, blur: 10, spread: 0, color: '#00ff00', inset: false, opacity: 0.8 },
+        { x: 10, y: -10, blur: 10, spread: 0, color: '#0000ff', inset: false, opacity: 0.8 },
+        { x: -10, y: 10, blur: 10, spread: 0, color: '#ffff00', inset: false, opacity: 0.8 }
+      ]
+    },
+    neon: {
+      'Neon Glow': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#03e9f4', inset: false, opacity: 1 }
+      ],
+      'Neon Pink': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#ff00ff', inset: false, opacity: 1 }
+      ],
+      'Neon Green': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#39ff14', inset: false, opacity: 1 }
+      ],
+      'Neon Red': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff0000', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff0000', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff0000', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#ff0000', inset: false, opacity: 1 }
+      ],
+      'Neon Blue': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#0000ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#0000ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#0000ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#0000ff', inset: false, opacity: 1 }
+      ],
+      'Neon Gradient': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#39ff14', inset: false, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#39ff14', inset: false, opacity: 1 }
+      ],
+      'Neon Dual Color': [
+        { x: -5, y: -5, blur: 10, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#ff00ff', inset: false, opacity: 1 }
+      ],
+      'Neon Multi-Color': [
+        { x: -5, y: -5, blur: 10, spread: 0, color: '#03e9f4', inset: false, opacity: 1 },
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#ff00ff', inset: false, opacity: 1 },
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#39ff14', inset: false, opacity: 1 }
+      ]
+    }
   },
-  inner: {}
+  inner: {
+    standard: {
+      'Inset Shadow': [
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#555555', inset: true, opacity: 0.7 }
+      ],
+      'Inset Deep Shadow': [
+        { x: 10, y: 10, blur: 15, spread: 0, color: '#000000', inset: true, opacity: 0.9 }
+      ],
+      'Inset Left Shadow': [
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset Right Shadow': [
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset Top Shadow': [
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset Bottom Shadow': [
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset Top and Bottom Shadow': [
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 },
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset Left and Right Shadow': [
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 },
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ],
+      'Inset All Sides Shadow': [
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 },
+        { x: 0, y: -10, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 },
+        { x: 10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 },
+        { x: -10, y: 0, blur: 10, spread: 0, color: '#000000', inset: true, opacity: 0.8 }
+      ]
+    },
+    neon: {
+      'Neon Inner Glow': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#03e9f4', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#03e9f4', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#03e9f4', inset: true, opacity: 1 }
+      ],
+      'Neon Pink Inner': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff00ff', inset: true, opacity: 1 }
+      ],
+      'Neon Green Inner': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#39ff14', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#39ff14', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#39ff14', inset: true, opacity: 1 }
+      ],
+      'Neon Red Inner': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff0000', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff0000', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff0000', inset: true, opacity: 1 }
+      ],
+      'Neon Inner Gradient': [
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 5, spread: 0, color: '#39ff14', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 25, spread: 0, color: '#39ff14', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 50, spread: 0, color: '#39ff14', inset: true, opacity: 1 },
+        { x: 0, y: 0, blur: 200, spread: 0, color: '#39ff14', inset: true, opacity: 1 }
+      ],
+      'Neon Inner Dual Color': [
+        { x: -5, y: -5, blur: 10, spread: 0, color: '#03e9f4', inset: true, opacity: 1 },
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#ff00ff', inset: true, opacity: 1 }
+      ],
+      'Neon Inner Multi-Color': [
+        { x: -5, y: -5, blur: 10, spread: 0, color: '#03e9f4', inset: true, opacity: 1 },
+        { x: 5, y: 5, blur: 10, spread: 0, color: '#ff00ff', inset: true, opacity: 1 },
+        { x: 0, y: 10, blur: 10, spread: 0, color: '#39ff14', inset: true, opacity: 1 }
+      ]
+    }
+  }
 };
+
+
 
 const App = () => {
   const [presets, setPresets] = useState(initialPresets);
   const [presetType, setPresetType] = useState('outer');
+  const [presetCategory, setPresetCategory] = useState('standard');
   const [selectedPreset, setSelectedPreset] = useState('Basic Shadow');
-  const [boxShadows, setBoxShadows] = useState(initialPresets.outer['Basic Shadow']);
-  const [reflection, setReflection] = useState({ reflect: false, offset: 1, gradient: '#0005' });
+  const [boxShadows, setBoxShadows] = useState(initialPresets.outer.standard['Basic Shadow']);
+  const [expandedCategories, setExpandedCategories] = useState({});
+  const [colorFormat, setColorFormat] = useState('rgba');
+  const [boxColor, setBoxColor] = useState('#ffffff');
+
+  const toggleCategory = (category) => {
+    setExpandedCategories((prev) => ({
+      ...prev,
+      [category]: !prev[category]
+    }));
+  };
+
+  const selectPreset = (preset, type, category) => {
+    setPresetType(type);
+    setPresetCategory(category);
+    setSelectedPreset(preset);
+    setBoxShadows(presets[type][category][preset]);
+  };
 
   const handleShadowChange = (index, e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
+
     const updatedShadows = boxShadows.map((shadow, i) => (
-      i === index ? { ...shadow, [name]: name === 'color' ? value : parseFloat(value) } : shadow
+      i === index ? { ...shadow, [name]: type === 'checkbox' ? checked : parseFloat(value) } : shadow
     ));
     setBoxShadows(updatedShadows);
+  };
+
+  const handleColorChange = (index, e) => {
+    const { value } = e.target;
+
+    const updatedShadows = boxShadows.map((shadow, i) => (
+      i === index ? { ...shadow, color: value } : shadow
+    ));
+    setBoxShadows(updatedShadows);
+  };
+
+  const handleColorFormatChange = (e) => {
+    setColorFormat(e.target.value);
+  };
+
+  const handleBoxColorChange = (e) => {
+    setBoxColor(e.target.value);
+  };
+
+  const convertColor = (color, format, opacity) => {
+    if (format === 'rgb' || format === 'rgba') {
+      const [r, g, b] = hexToRgb(color);
+      if (format === 'rgb') {
+        return `rgb(${r}, ${g}, ${b})`;
+      } else {
+        return `rgba(${r}, ${g}, ${b}, ${opacity})`;
+      }
+    }
+    return color;
   };
 
   const handleAddShadow = () => {
@@ -298,37 +258,75 @@ const App = () => {
     setBoxShadows(boxShadows.filter((_, i) => i !== index));
   };
 
-  const handlePresetChange = (preset) => {
-    setSelectedPreset(preset);
-    setBoxShadows(presets[presetType][preset]);
-  };
-
   const handleSavePreset = () => {
     setPresets((prev) => ({
       ...prev,
       [presetType]: {
         ...prev[presetType],
-        [selectedPreset]: boxShadows
+        [presetCategory]: {
+          ...prev[presetType][presetCategory],
+          [selectedPreset]: boxShadows
+        }
       }
     }));
   };
 
   const handleCopy = () => {
-    const shadowString = boxShadows.map((shadow) =>
-      `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px ${shadow.color}${shadow.opacity < 1 ? ` ${shadow.opacity}` : ''}`
-    ).join(', ');
-    const reflectString = reflection.reflect ? `-webkit-box-reflect: below ${reflection.offset}px linear-gradient(transparent, ${reflection.gradient});` : '';
-    navigator.clipboard.writeText(`box-shadow: ${shadowString}; ${reflectString}`);
+    const shadowString = boxShadows.map((shadow) => {
+      const [r, g, b] = hexToRgb(shadow.color);
+      return `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px rgba(${r}, ${g}, ${b}, ${shadow.opacity})`;
+    }).join(', ');
+    navigator.clipboard.writeText(`box-shadow: ${shadowString};`);
     alert('Box-shadow CSS copied to clipboard!');
+  };
+
+  const hexToRgb = (hex) => {
+    const bigint = parseInt(hex.slice(1), 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+    return [r, g, b];
   };
 
   return (
     <div className="App">
       <h1>Box Shadow Generator</h1>
       <div className="container">
+        <div className="presets">
+          <h2>Presets</h2>
+          <div className="preset-list">
+            {Object.keys(presets).map((type) => (
+              <div key={type} className="preset-category">
+                <button onClick={() => toggleCategory(type)}>
+                  {type.charAt(0).toUpperCase() + type.slice(1)}
+                </button>
+                <div className={`children ${expandedCategories[type] ? 'active' : ''}`}>
+                  {Object.keys(presets[type]).map((category) => (
+                    <div key={category} className="preset-category">
+                      <button onClick={() => toggleCategory(`${type}-${category}`)}>
+                        {category.charAt(0).toUpperCase() + category.slice(1)}
+                      </button>
+                      <div className={`children ${expandedCategories[`${type}-${category}`] ? 'active' : ''}`}>
+                        {Object.keys(presets[type][category]).map((preset) => (
+                          <button
+                            key={preset}
+                            className={selectedPreset === preset ? 'active' : ''}
+                            onClick={() => selectPreset(preset, type, category)}
+                          >
+                            {preset}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="controls">
           {boxShadows.map((shadow, index) => (
-            <div key={index}>
+            <div key={index} className="shadow-control">
               <h3>Shadow {index + 1}</h3>
               <label>
                 Horizontal Offset (x):
@@ -340,7 +338,14 @@ const App = () => {
                   value={shadow.x}
                   onChange={(e) => handleShadowChange(index, e)}
                 />
-                <span>{shadow.x}</span>
+                <input
+                  type="number"
+                  name="x"
+                  min="-100"
+                  max="100"
+                  value={shadow.x}
+                  onChange={(e) => handleShadowChange(index, e)}
+                />
               </label>
               <label>
                 Vertical Offset (y):
@@ -352,7 +357,14 @@ const App = () => {
                   value={shadow.y}
                   onChange={(e) => handleShadowChange(index, e)}
                 />
-                <span>{shadow.y}</span>
+                <input
+                  type="number"
+                  name="y"
+                  min="-100"
+                  max="100"
+                  value={shadow.y}
+                  onChange={(e) => handleShadowChange(index, e)}
+                />
               </label>
               <label>
                 Blur Radius (blur):
@@ -364,7 +376,14 @@ const App = () => {
                   value={shadow.blur}
                   onChange={(e) => handleShadowChange(index, e)}
                 />
-                <span>{shadow.blur}</span>
+                <input
+                  type="number"
+                  name="blur"
+                  min="0"
+                  max="100"
+                  value={shadow.blur}
+                  onChange={(e) => handleShadowChange(index, e)}
+                />
               </label>
               <label>
                 Spread Radius (spread):
@@ -376,7 +395,14 @@ const App = () => {
                   value={shadow.spread}
                   onChange={(e) => handleShadowChange(index, e)}
                 />
-                <span>{shadow.spread}</span>
+                <input
+                  type="number"
+                  name="spread"
+                  min="-50"
+                  max="50"
+                  value={shadow.spread}
+                  onChange={(e) => handleShadowChange(index, e)}
+                />
               </label>
               <label>
                 Color:
@@ -384,7 +410,13 @@ const App = () => {
                   type="color"
                   name="color"
                   value={shadow.color}
-                  onChange={(e) => handleShadowChange(index, e)}
+                  onChange={(e) => handleColorChange(index, e)}
+                />
+                <input
+                  type="text"
+                  name="color"
+                  value={shadow.color}
+                  onChange={(e) => handleColorChange(index, e)}
                 />
               </label>
               <label>
@@ -398,7 +430,15 @@ const App = () => {
                   value={shadow.opacity}
                   onChange={(e) => handleShadowChange(index, e)}
                 />
-                <span>{shadow.opacity}</span>
+                <input
+                  type="number"
+                  name="opacity"
+                  min="0"
+                  max="1"
+                  step="0.01"
+                  value={shadow.opacity}
+                  onChange={(e) => handleShadowChange(index, e)}
+                />
               </label>
               <label>
                 Inset:
@@ -409,102 +449,42 @@ const App = () => {
                   onChange={(e) => handleShadowChange(index, e)}
                 />
               </label>
-              {selectedPreset === 'Neon Glow' && (
-                <button onClick={() => handleRemoveShadow(index)}>Remove Shadow</button>
-              )}
+              <button onClick={() => handleRemoveShadow(index)}>Remove Shadow</button>
             </div>
           ))}
-          {selectedPreset === 'Neon Glow' && (
-            <button onClick={handleAddShadow}>Add Shadow</button>
-          )}
-          <label>
-            Reflect:
-            <input
-              type="checkbox"
-              name="reflect"
-              checked={reflection.reflect}
-              onChange={(e) => setReflection({ ...reflection, reflect: e.target.checked })}
-            />
-          </label>
-          {reflection.reflect && (
-            <>
-              <label>
-                Reflect Offset:
-                <input
-                  type="range"
-                  name="offset"
-                  min="0"
-                  max="10"
-                  value={reflection.offset}
-                  onChange={(e) => setReflection({ ...reflection, offset: parseFloat(e.target.value) })}
-                />
-                <span>{reflection.offset}</span>
-              </label>
-              <label>
-                Reflect Gradient:
-                <input
-                  type="color"
-                  name="gradient"
-                  value={reflection.gradient}
-                  onChange={(e) => setReflection({ ...reflection, gradient: e.target.value })}
-                />
-              </label>
-            </>
-          )}
+          <button onClick={handleAddShadow}>Add Shadow</button>
           <button onClick={handleCopy}>Copy CSS</button>
           <button onClick={handleSavePreset}>Save Preset</button>
-
-          <h2>Presets</h2>
-          <div>
-            <label>
-              <input
-                type="radio"
-                value="outer"
-                checked={presetType === 'outer'}
-                onChange={() => setPresetType('outer')}
-              />
-              Outer Box Shadows
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="inner"
-                checked={presetType === 'inner'}
-                onChange={() => setPresetType('inner')}
-              />
-              Inner Box Shadows
-            </label>
-          </div>
-
-          <div className="presets">
-            {Object.keys(presets[presetType]).map((preset) => (
-              <button
-                key={preset}
-                className={selectedPreset === preset ? 'active' : ''}
-                onClick={() => handlePresetChange(preset)}
-              >
-                {preset}
-              </button>
-            ))}
-          </div>
+          <label>
+            Box Color:
+            <input
+              type="color"
+              value={boxColor}
+              onChange={handleBoxColorChange}
+            />
+            <input
+              type="text"
+              value={boxColor}
+              onChange={handleBoxColorChange}
+            />
+          </label>
         </div>
-
         <div className="preview">
           <div
             className="box"
             style={{
-              boxShadow: boxShadows.map((shadow) =>
-                `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px ${shadow.color}${shadow.opacity < 1 ? ` ${shadow.opacity}` : ''}`
-              ).join(', '),
-              WebkitBoxReflect: reflection.reflect ? `below ${reflection.offset}px linear-gradient(transparent, ${reflection.gradient})` : 'none'
+              backgroundColor: boxColor,
+              boxShadow: boxShadows.map((shadow) => {
+                const color = convertColor(shadow.color, colorFormat, shadow.opacity);
+                return `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px ${color}`;
+              }).join(', ')
             }}
           ></div>
           <code>
-            box-shadow: {boxShadows.map((shadow) =>
-              `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px ${shadow.color}${shadow.opacity < 1 ? ` ${shadow.opacity}` : ''}`
-            ).join(', ')};
-            <br />
-            {reflection.reflect && `-webkit-box-reflect: below ${reflection.offset}px linear-gradient(transparent, ${reflection.gradient});`}
+            box-shadow: {boxShadows.map((shadow) => {
+              const color = convertColor(shadow.color, colorFormat, shadow.opacity);
+              return `${shadow.inset ? 'inset ' : ''}${shadow.x}px ${shadow.y}px ${shadow.blur}px ${shadow.spread}px ${color}`;
+            }).join(', ')};
           </code>
         </div>
       </div>
