@@ -2,7 +2,6 @@
 .App {
   font-family: Arial, sans-serif;
   text-align: center;
-  background-color: #f0f0f0;
 }
 
 h1 {
@@ -14,8 +13,6 @@ h1 {
   height: 80vh;
   width: 90vw;
   margin: 0 auto;
-  background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 .presets, .controls, .preview {
@@ -26,7 +23,6 @@ h1 {
 
 .presets {
   width: 20%;
-  background-color: #f7f7f7;
   border-right: 1px solid #ddd;
   position: relative;
 }
@@ -76,7 +72,6 @@ h1 {
 
 .controls {
   width: 45%;
-  background-color: #fafafa;
   padding: 20px;
   position: relative;
   display: flex;
@@ -86,14 +81,12 @@ h1 {
 }
 
 .controls .shadow-control {
-  margin-bottom: 15px;
-  background-color: #fff;
-  padding: 15px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 400px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
+        background-color: #fff;
+        padding: 15px;
+        width: 100%;
+        box-shadow: 0px 8px 5px -7px rgba(85, 85, 85, 0.55);
+
 }
 
 .controls .shadow-control h3 {
@@ -102,11 +95,12 @@ h1 {
 }
 
 .controls label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-  width: 100%;
+    display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      align-items: center;
+      margin: 10px 0;
+      width: 100%;
+      justify-items: start;
 }
 
 .controls label span {
@@ -114,8 +108,19 @@ h1 {
 }
 
 .controls input[type="range"] {
-  width: 65%;
+  /* width: 65%; */
 }
+.controls input[type="text"], .controls input[type="number"] {
+  width: 50%;
+  height: 25px;
+  border: 1px solid #ccc;
+}
+
+.controls input[type="text"]:focus, .controls input[type="number"]:focus {
+  border-color: #c4c4c4;
+  outline: none;
+}
+
 
 .controls input[type="color"],
 .controls input[type="checkbox"] {
@@ -140,6 +145,14 @@ h1 {
   transform: scale(1.05);
 }
 
+.controls .controls-header {
+    display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 100%;
+      margin-bottom: 20px;
+}
 .preview {
   width: 30%;
   background-color: #fff;

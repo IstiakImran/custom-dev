@@ -325,6 +325,26 @@ const App = () => {
           </div>
         </div>
         <div className="controls">
+          <div className="controls-header">
+            <div className="controls-buttons">
+              <button onClick={handleAddShadow}>Add Shadow</button>
+              <button onClick={handleCopy}>Copy CSS</button>
+              <button onClick={handleSavePreset}>Save Preset</button>
+            </div>
+            <label>
+              Box Color:
+              <input
+                type="color"
+                value={boxColor}
+                onChange={handleBoxColorChange}
+              />
+              <input
+                type="text"
+                value={boxColor}
+                onChange={handleBoxColorChange}
+              />
+            </label>
+          </div>
           {boxShadows.map((shadow, index) => (
             <div key={index} className="shadow-control">
               <h3>Shadow {index + 1}</h3>
@@ -452,22 +472,8 @@ const App = () => {
               <button onClick={() => handleRemoveShadow(index)}>Remove Shadow</button>
             </div>
           ))}
-          <button onClick={handleAddShadow}>Add Shadow</button>
-          <button onClick={handleCopy}>Copy CSS</button>
-          <button onClick={handleSavePreset}>Save Preset</button>
-          <label>
-            Box Color:
-            <input
-              type="color"
-              value={boxColor}
-              onChange={handleBoxColorChange}
-            />
-            <input
-              type="text"
-              value={boxColor}
-              onChange={handleBoxColorChange}
-            />
-          </label>
+
+
         </div>
         <div className="preview">
           <div
