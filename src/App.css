@@ -1,0 +1,60 @@
+.App {
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px;
+}
+
+.controls {
+  width: 300px;
+}
+
+.controls label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.controls input[type="range"] {
+  width: 100%;
+}
+
+.controls input[type="color"] {
+  width: 100%;
+  padding: 5px;
+  margin-top: 5px;
+}
+
+.controls button {
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+
+.presets {
+  display: flex;
+  flex-direction: column;
+}
+
+.presets button {
+  margin: 5px 0;
+  padding: 10px;
+}
+
+.presets button.active {
+  background-color: #ddd;
+}
+
+.preview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: #f0f0f0;
+  margin-bottom: 20px;
+}
