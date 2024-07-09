@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './App.css';
+import './BoxShadow.css';
 
 const initialPresets = {
   outer: {
@@ -188,7 +188,7 @@ const initialPresets = {
 
 
 
-const App = () => {
+const BoxShadow = () => {
   const [presets, setPresets] = useState(initialPresets);
   const [presetType, setPresetType] = useState('outer');
   const [presetCategory, setPresetCategory] = useState('standard');
@@ -289,7 +289,7 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    <div className="BoxShadow">
       <h1>Box Shadow Generator</h1>
       <div className="container">
         <div className="presets">
@@ -498,4 +498,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default BoxShadow;
