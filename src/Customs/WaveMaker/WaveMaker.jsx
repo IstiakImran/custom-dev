@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { animated, useSpring } from 'react-spring';
+import { animated, useSpring, config } from 'react-spring';
 import { saveAs } from 'file-saver';
 import { toSvg } from 'html-to-image';
 
@@ -69,26 +69,26 @@ const WaveGenerator = () => {
     const [animate, setAnimate] = useState(false);
     const [flip, setFlip] = useState(false);
 
-    const randomAmplitude = () => Math.random() * (height / layers);
-
-    const wavePath = (index, width, frequency) => {
+    const wavePath = (index, width, frequency, offset) => {
         let path = `M0,${height}`;
         const waveHeight = height / layers;
         const waveOffset = index * waveHeight;
 
         for (let x = 0; x <= width; x += 10) {
-            const y = Math.sin((x + (animate ? new Date().getTime() / 10 : 0)) / frequency) * randomAmplitude() + waveOffset;
+            const y = Math.sin((x + offset) / frequency) * (waveHeight / 2) + waveOffset;
             path += ` L${x},${y}`;
         }
 
         return `${path} L${width},${height} L0,${height} Z`;
     };
 
-    const animationProps = useSpring({
-        to: { transform: 'translate3d(0,0,0)' },
-        from: { transform: 'translate3d(-100%,0,0)' },
-        config: { duration: 2000 },
-        loop: animate ? { reverse: true } : false,
+    const { offset } = useSpring({
+        from: { offset: 0 },
+        to: { offset: 600 },
+        reset: true,
+        reverse: true,
+        config: { duration: 5000 },
+        loop: animate,
     });
 
     const handleExport = async (type) => {
@@ -135,9 +135,9 @@ const WaveGenerator = () => {
                     {[...Array(layers)].map((_, i) => (
                         <animated.path
                             key={i}
-                            d={wavePath(i, 600, 50)}
+                            d={wavePath(i, 600, 50, offset.get())}
                             fill={gradient ? `url(#gradient)` : color}
-                            style={animate ? animationProps : {}}
+                            style={animate ? { willChange: 'transform' } : {}}
                         />
                     ))}
                     {gradient && (
