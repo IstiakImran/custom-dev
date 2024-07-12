@@ -1,117 +1,97 @@
-// // src/CustomBox.js
-// import React, { useRef, useState } from 'react';
-// import './CustomBox.css';
-
-// const CustomBox = () => {
-//     const [isResizing, setIsResizing] = useState(false);
-//     const [boxStyle, setBoxStyle] = useState({
-//         width: 200,
-//         height: 200,
-//         borderRadius: '0 0 0 0',
-//     });
-//     const boxRef = useRef(null);
-
-//     const handleMouseDown = (e) => {
-//         setIsResizing(true);
-//     };
-
-//     const handleMouseUp = (e) => {
-//         setIsResizing(false);
-//     };
-
-//     const handleMouseMove = (e) => {
-//         if (isResizing) {
-//             const box = boxRef.current;
-//             const rect = box.getBoundingClientRect();
-//             setBoxStyle((prevStyle) => ({
-//                 ...prevStyle,
-//                 width: e.clientX - rect.left,
-//                 height: e.clientY - rect.top,
-//             }));
-//         }
-//     };
-
-//     const handleContextMenu = (e) => {
-//         e.preventDefault();
-//         const borderRadius = prompt('Enter border radius (e.g., 10px 10px 10px 10px):', boxStyle.borderRadius);
-//         if (borderRadius !== null) {
-//             setBoxStyle((prevStyle) => ({
-//                 ...prevStyle,
-//                 borderRadius: borderRadius,
-//             }));
-//         }
-//     };
-
-//     return (
-//         <div
-//             ref={boxRef}
-//             className="custom-box"
-//             style={boxStyle}
-//             onMouseDown={handleMouseDown}
-//             onMouseUp={handleMouseUp}
-//             onMouseMove={handleMouseMove}
-//             onContextMenu={handleContextMenu}
-//         >
-//             <div className="resize-handle" />
-//         </div>
-//     );
-// };
-
-// export default CustomBox;
-
-
-// src/CustomBox.js
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import './CustomBox.css';
 
-const CustomBox = () => {
-    const [points, setPoints] = useState([
-        { x: 50, y: 50 },
-        { x: 150, y: 50 },
-        { x: 150, y: 150 },
-        { x: 50, y: 150 },
-    ]);
+function CustomBox() {
+    const [borderRadius, setBorderRadius] = useState({
+        top: 50,
+        right: 50,
+        bottom: 50,
+        left: 50,
+    });
+    const [customSize, setCustomSize] = useState(false);
+    const [width, setWidth] = useState(300);
+    const [height, setHeight] = useState(300);
+    const [color1, setColor1] = useState('#FF0080');
+    const [color2, setColor2] = useState('#8000FF');
 
-    const handleDrag = (index, e, ui) => {
-        const newPoints = [...points];
-        newPoints[index] = { x: ui.x, y: ui.y };
-        setPoints(newPoints);
+    const handleDrag = (e, ui, position) => {
+        let newRadius;
+        if (position === 'top' || position === 'right') {
+            // Increases as you drag right for top and as you drag down for right
+            newRadius = Math.round(Math.max(0, Math.min(100, borderRadius[position] + (position === 'top' ? ui.deltaX : ui.deltaY) / 3)));
+        } else if (position === 'bottom') {
+            // Decreases as you drag right
+            newRadius = Math.round(Math.max(0, Math.min(100, borderRadius[position] - ui.deltaX / 3)));
+        } else if (position === 'left') {
+            // Increases as you drag up
+            newRadius = Math.round(Math.max(0, Math.min(100, borderRadius[position] - ui.deltaY / 3)));
+        }
+        setBorderRadius(prev => ({ ...prev, [position]: newRadius }));
     };
 
-    const generateClipPath = () => {
-        const path = points.map(p => `${p.x}px ${p.y}px`).join(', ');
-        return `polygon(${path})`;
-    };
+
+    const borderRadiusString = `${borderRadius.top}% ${borderRadius.right}% ${borderRadius.bottom}% ${borderRadius.left}%`;
 
     return (
-        <div className="shape-editor">
-            <div className="custom-div" style={{ clipPath: generateClipPath() }}>
-                <div className="content">Drag the red dots to reshape me!</div>
-            </div>
-            {points.map((point, index) => (
-                <Draggable
-                    key={index}
-                    position={{ x: point.x, y: point.y }}
-                    onDrag={(e, ui) => handleDrag(index, e, ui)}
+        <div className="CustomBox">
+            <h1>8 Point Full Control</h1>
+            <div className="shape-container" style={{ width: `${width}px`, height: `${height}px` }}>
+                <div
+                    className="shape"
+                    style={{
+                        borderRadius: borderRadiusString,
+                        background: `linear-gradient(135deg, ${color1}, ${color2})`,
+                        width: '100%',
+                        height: '100%',
+                    }}
                 >
-                    <div className="control-point" />
-                </Draggable>
-            ))}
-            <div className="code-output">
-                <h3>HTML:</h3>
-                <code>
-                    {`<div style="clip-path: ${generateClipPath()};">
-  <div class="content">Drag the red dots to reshape me!</div>
-</div>`}
-                </code>
-                <h3>CSS:</h3>
-                <code>{`.custom-div { background-color: lightblue; position: relative; }
-.content { padding: 20px; }
-.control-point { width: 10px; height: 10px; background-color: red; position: absolute; border-radius: 50%; cursor: pointer; }`}</code>
+                    {['top', 'right', 'bottom', 'left'].map(position => (
+                        <Draggable
+                            key={position}
+                            axis={position === 'top' || position === 'bottom' ? 'x' : 'y'}
+                            bounds="parent"
+                            onDrag={(e, ui) => handleDrag(e, ui, position)}
+                        >
+                            <div className={`handle ${position}`}
+                                style={{
+                                    backgroundColor: `${position === 'left' || position === 'top' ? color1 : color2}`,
+                                }}
+                            ></div>
+                        </Draggable>
+                    ))}
+                </div>
+            </div>
+            <div className="controls">
+                <label>Border-radius: {borderRadiusString}</label>
+                <button onClick={() => navigator.clipboard.writeText(`border-radius: ${borderRadiusString};`)}>Copy</button>
+                <label>
+                    Custom size:
+                    <input type="checkbox" checked={customSize} onChange={(e) => setCustomSize(e.target.checked)} />
+                </label>
+                {customSize && (
+                    <>
+                        <label>
+                            Width:
+                            <input type="number" value={width} onChange={(e) => setWidth(parseInt(e.target.value, 10))} />
+                        </label>
+                        <label>
+                            Height:
+                            <input type="number" value={height} onChange={(e) => setHeight(parseInt(e.target.value, 10))} />
+                        </label>
+                    </>
+                )}
+                <label>
+                    Gradient Color 1:
+                    <input type="color" value={color1} onChange={(e) => setColor1(e.target.value)} />
+                </label>
+                <label>
+                    Gradient Color 2:
+                    <input type="color" value={color2} onChange={(e) => setColor2(e.target.value)} />
+                </label>
             </div>
         </div>
     );
-};
+}
 
 export default CustomBox;
