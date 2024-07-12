@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import WaveMaker from '../../Customs/WaveMaker/WaveMaker';
 import BoxShadow from '../../Customs/BoxShadow/BoxShadow';
+import CustomBox from '../../Customs/CustomBox/CustomBox';
+import ShapeEditor from '../../Customs/ShapeEditor/ShapeEditor';
 
 const Home = () => {
     return (
@@ -12,7 +14,9 @@ const Home = () => {
             <Link to="/box-shadow">Box Shadow</Link>
             <WaveMaker></WaveMaker> */}
 
-            <BoxShadow></BoxShadow>
+            {/* <BoxShadow></BoxShadow> */}
+            <CustomBox></CustomBox>
+            {/* <ShapeEditor></ShapeEditor> */}
 
         </div>
     );
