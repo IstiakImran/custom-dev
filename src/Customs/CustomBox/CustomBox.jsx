@@ -16,9 +16,13 @@ function CustomBox() {
     const [color2, setColor2] = useState('#8000FF');
 
     const handleDrag = (e, ui, position) => {
+        // console.log(position);
+        // console.log(ui);
+        // console.log(e);
         let newRadius;
         if (position === 'top' || position === 'right') {
             // Increases as you drag right for top and as you drag down for right
+            console.log(borderRadius[position], (position === 'top' ? ui.deltaX : ui.deltaY) / 3);
             newRadius = Math.round(Math.max(0, Math.min(100, borderRadius[position] + (position === 'top' ? ui.deltaX : ui.deltaY) / 3)));
         } else if (position === 'bottom') {
             // Decreases as you drag right

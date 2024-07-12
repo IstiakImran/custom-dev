@@ -15,8 +15,8 @@ const Home = () => {
             <WaveMaker></WaveMaker> */}
 
             {/* <BoxShadow></BoxShadow> */}
-            <CustomBox></CustomBox>
-            {/* <ShapeEditor></ShapeEditor> */}
+            {/* <CustomBox></CustomBox> */}
+            <ShapeEditor></ShapeEditor>
 
         </div>
     );
