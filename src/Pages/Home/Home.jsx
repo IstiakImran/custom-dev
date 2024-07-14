@@ -8,6 +8,7 @@ import CardCreator from '../../Customs/CardCreator/CardCreator';
 import TextCustomizer from '../../Customs/TextCustomizer/TextCustomizer';
 import Wysiwyg from '../../Customs/WYSIWYG/WYSIWYG/Wysiwyg';
 import App from '../../Customs/DivElement/App';
+import Editor from '../../Customs/WYSIWYG/Editor/Editor';
 
 
 
@@ -26,7 +27,8 @@ const Home = () => {
             {/* <CardCreator></CardCreator> */}
             {/* <TextCustomizer></TextCustomizer> */}
             {/* <Wysiwyg></Wysiwyg> */}
-            <App></App>
+            {/* <App></App> */}
+            <Editor></Editor>
 
         </div>
     );
