@@ -1,0 +1,50 @@
+.card-creator {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.controls {
+    flex: 1;
+    padding: 10px;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.controls h2 {
+    margin-top: 0;
+}
+
+.controls div {
+    margin-bottom: 10px;
+}
+
+.controls label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.controls input,
+.controls select,
+.controls button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.card-preview {
+    flex: 2;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-preview>div {
+    position: absolute;
+}

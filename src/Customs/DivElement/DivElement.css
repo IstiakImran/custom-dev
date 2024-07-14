@@ -1,0 +1,15 @@
+/* App.css */
+.canvas {
+    padding: 20px;
+    border: 1px solid #ccc;
+}
+
+.div-element {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #000;
+}
+
+.controls {
+    margin-bottom: 10px;
+}

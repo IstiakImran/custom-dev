@@ -230,9 +230,9 @@ const BoxShadow = () => {
     setBoxShadows(updatedShadows);
   };
 
-  const handleColorFormatChange = (e) => {
-    setColorFormat(e.target.value);
-  };
+  // const handleColorFormatChange = (e) => {
+  //   setColorFormat(e.target.value);
+  // };
 
   const handleBoxColorChange = (e) => {
     setBoxColor(e.target.value);

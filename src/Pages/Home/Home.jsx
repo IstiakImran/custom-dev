@@ -4,6 +4,12 @@ import WaveMaker from '../../Customs/WaveMaker/WaveMaker';
 import BoxShadow from '../../Customs/BoxShadow/BoxShadow';
 import CustomBox from '../../Customs/CustomBox/CustomBox';
 import ShapeEditor from '../../Customs/ShapeEditor/ShapeEditor';
+import CardCreator from '../../Customs/CardCreator/CardCreator';
+import TextCustomizer from '../../Customs/TextCustomizer/TextCustomizer';
+import Wysiwyg from '../../Customs/WYSIWYG/WYSIWYG/Wysiwyg';
+import App from '../../Customs/DivElement/App';
+
+
 
 const Home = () => {
     return (
@@ -16,7 +22,11 @@ const Home = () => {
 
             {/* <BoxShadow></BoxShadow> */}
             {/* <CustomBox></CustomBox> */}
-            <ShapeEditor></ShapeEditor>
+            {/* <ShapeEditor></ShapeEditor> */}
+            {/* <CardCreator></CardCreator> */}
+            {/* <TextCustomizer></TextCustomizer> */}
+            {/* <Wysiwyg></Wysiwyg> */}
+            <App></App>
 
         </div>
     );

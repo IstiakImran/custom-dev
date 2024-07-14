@@ -1,0 +1,49 @@
+/* src/TextCustomizer.css */
+.text-customizer {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial, sans-serif;
+}
+
+.text-customizer label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.text-customizer input[type="text"],
+.text-customizer input[type="range"],
+.text-customizer input[type="color"],
+.text-customizer select {
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.custom-text {
+    padding: 20px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.output {
+    background: #f7f7f7;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+pre {
+    background: #eaeaea;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+.shadow-controls {
+    margin-top: 20px;
+}
+
+.shadow-control {
+    margin-bottom: 20px;
+}
