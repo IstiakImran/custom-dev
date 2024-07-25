@@ -9,6 +9,7 @@ import TextCustomizer from '../../Customs/TextCustomizer/TextCustomizer';
 import Wysiwyg from '../../Customs/WYSIWYG/WYSIWYG/Wysiwyg';
 import App from '../../Customs/DivElement/App';
 import Editor from '../../Customs/WYSIWYG/Editor/Editor';
+import BackgroundCustomizer from '../../Customs/BackgroundCustomizer/BackgroundCustomizer';
 
 
 
@@ -28,7 +29,8 @@ const Home = () => {
             {/* <TextCustomizer></TextCustomizer> */}
             {/* <Wysiwyg></Wysiwyg> */}
             {/* <App></App> */}
-            <Editor></Editor>
+            {/* <Editor></Editor> */}
+            <BackgroundCustomizer></BackgroundCustomizer>
 
         </div>
     );

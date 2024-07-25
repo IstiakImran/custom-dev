@@ -1,0 +1,90 @@
+.customizer {
+    display: flex;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+}
+
+.mode-selector {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 10px 0;
+    background: #f0f0f0;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 10px;
+    background: #e0e0e0;
+    overflow-y: auto;
+}
+
+.preset-buttons button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px;
+    background: #ffffff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.controls {
+    flex: 2;
+    padding: 10px;
+    background: #f9f9f9;
+    overflow-y: auto;
+}
+
+.preview-container {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background: #ffffff;
+}
+
+.gradient-preview {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ccc;
+}
+
+.code-preview {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background: #f0f0f0;
+}
+
+.gradient-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.gradient-form div {
+    display: flex;
+    gap: 10px;
+}
+
+.gradient-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+}
